@@ -16,6 +16,8 @@ public class MinigameInterface : MonoBehaviour
     public string action3Text = "Action3Text";
     public string action4Text = "Action4Text";
 
+    private IMinigameFunctionsInterface actionFunctions;
+
 
 
     // Start is called before the first frame update
@@ -31,7 +33,11 @@ public class MinigameInterface : MonoBehaviour
         action3.GetComponentInChildren<Text>().text = action3Text;
         action4.GetComponentInChildren<Text>().text = action4Text;
 
-
+        actionFunctions = GameObject.Find("PutHereFunctionsScript").GetComponentInChildren<IMinigameFunctionsInterface>();
+        action1.GetComponentInChildren<Button>().onClick.AddListener(delegate { actionFunctions.FunctionAction1(); });
+        action2.GetComponentInChildren<Button>().onClick.AddListener(delegate { actionFunctions.FunctionAction2(); });
+        action3.GetComponentInChildren<Button>().onClick.AddListener(delegate { actionFunctions.FunctionAction3(); });
+        action4.GetComponentInChildren<Button>().onClick.AddListener(delegate { actionFunctions.FunctionAction4(); });
     }
 
     // Update is called once per frame
