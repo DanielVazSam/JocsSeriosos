@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChangeToMission : MonoBehaviour
 {
-    public enum Missions { alcohol, detenirBaralla}
+    public enum Missions { alcohol, detenirBaralla }
     public Missions mission;
 
     public void ChangeTo()
