@@ -47,13 +47,13 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         {
             string dialogue = "L'enemic ha atacat, però tu també.\nL'enemic ha rebut un cop.";
             text.text = dialogue;
-            vidaEnemy -= 20;
+            vidaEnemy -= 10;
         }
         else if(enemyAction.Equals(ESQUIVAR))
         {
             string dialogue = "L'enemic ha esquivat el teu atac i ha contratacat.";
             text.text = dialogue;
-            vida -= 20;
+            vida -= 15;
         }
     }
 
@@ -64,7 +64,13 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         Debug.Log("enemyAction = " + enemyAction); 
         if (enemyAction.Equals(COLPEJAR))
         {
-            // vidaEnemy -= 20;
+            string dialogue = "L'enemic ha atacat, però has detingut el cop.";
+            text.text = dialogue;
+        }
+        else if (enemyAction.Equals(ESQUIVAR))
+        {
+            string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.";
+            text.text = dialogue;
         }
     }
 
@@ -72,20 +78,29 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
     public void FunctionAction3()
     {
         Debug.Log("Reduir");
+        
+
+
+        Debug.Log("Percentatge: ");
+
     }
 
     // ESPOSAR
     public void FunctionAction4()
     {
         Debug.Log("Esposar");
+
+        string dialogue = "-1";
+        text.text = dialogue;
+        vidaEnemy -= 1;
     }
 
 
     private string DoEnemyAction()
     {
-        int value = Random.Range(1, 3);
+        int value = Random.Range(0, 3);
         string response = "Idle";
-        if(value == 1)
+        if(value == 1 || value == 0)
         {
             response = COLPEJAR;
         }
