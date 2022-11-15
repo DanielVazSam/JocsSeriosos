@@ -462,6 +462,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 517489209}
+    - target: {fileID: 7404977480043666862, guid: 6a9f4f3766269f046966b9e477f34c4d, type: 3}
+      propertyPath: missionsToSpawn
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7404977480043666863, guid: 6a9f4f3766269f046966b9e477f34c4d, type: 3}
       propertyPath: m_RootOrder
       value: 3
