@@ -39,4 +39,18 @@ public static class AlcoholValues{
     public static Alcohol Limoncello = new Alcohol() { quantity = 0.03f, degrees = 30, name = "limoncello" };
     public static Alcohol Absenta = new Alcohol() { quantity = 0.03f, degrees = 70, name = "absenta" };
 
+    private static bool[] utilitzat = { true, false, true, false, false, false, false, false, true, false, false, false, false, true, false, false, false, false, false, false, false };
+    private static Alcohol[] alcohols = { Cerveza, Sidra, Vino, Champagne, Vermut, Cognac, Patxaran, Anis, Ron, Jager, Vodka, Ginebra, Whisky, Tequila, CremaLicor, OrujoHierbas, OrujoBlanco, Ratafia, Aguardiente, Limoncello, Absenta };
+    public static Alcohol GetRandomAlcohol()
+    {
+        Alcohol res;
+        int i = 0;
+        do
+        {
+            i = Random.Range(0, alcohols.Length);
+        } while (utilitzat[i]);
+        res = alcohols[i];
+        utilitzat[i] = true;
+        return res;
+    }
 }

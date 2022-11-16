@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 {
-    public AlcoholValues.Alcohol[] alcohols = new AlcoholValues.Alcohol[] { 
+    public List<AlcoholValues.Alcohol> alcohols = new List<AlcoholValues.Alcohol> { 
         AlcoholValues.Cerveza, 
         AlcoholValues.Vino, 
         AlcoholValues.Ron, 
@@ -13,8 +13,6 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 
     public Text text;
     public bool mentir = false;
-
-    
 
     private struct Person { public int quantity; public int fakeValue; };
 
@@ -30,14 +28,15 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     //FER CONTROL
     public void FunctionAction1()
     {
-        Debug.Log("Fer control");
-        text.text = "L'acoholímetre ha donat: " + newPersonAlcohol.quantity;
+        //Debug.Log("Fer control");
+        // consumicions * graus d'alcohol * quantitat d'alcohol per consumició
+        float result = (newPerson.quantity - newPerson.fakeValue) * newPersonAlcohol.quantity * newPersonAlcohol.degrees;
+        text.text = "L'acoholímetre ha donat: " + result + "%";
     }
 
     //TORNAR A DEMANAR
     public void FunctionAction2()
     {
-        Debug.Log("");
         int quantity = (int)newPerson.quantity - newPerson.fakeValue;
         text.text = quantity == 0 ? "Bones! Jo no he begut" : "Bones! Jo he begut " + quantity + " de " + newPersonAlcohol.name;
     }
@@ -45,8 +44,10 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     //DEIXAR PASSAR
     public void FunctionAction3()
     {
-        Debug.Log("Deixar passar");
+        //Debug.Log("Deixar passar");
         GenerateNewPerson();
+        //alcohols.Add(AlcoholValues.GetRandomAlcohol());
+        //mostrarLlista();
     }
 
     //MULTAR
@@ -55,9 +56,10 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         Debug.Log("Multar");
     }
 
+    //Funció que genera nou perfil de persona segons si ha begut o no
     private void GenerateNewPerson()
     {
-        int i = Random.Range(0, alcohols.Length);
+        int i = Random.Range(0, alcohols.Count);
         newPersonAlcohol = alcohols[i];
 
         newPerson = new Person();
@@ -66,5 +68,11 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 
         int quantity = (int)newPerson.quantity - newPerson.fakeValue;
         text.text = quantity == 0 ? "Bones! Jo no he begut" : "Bones! Jo he begut " + quantity + " de " + newPersonAlcohol.name;
+    }
+
+    private void mostrarLlista()
+    {
+        foreach(AlcoholValues.Alcohol alcohol in alcohols)
+            Debug.Log(alcohol.name);
     }
 }
