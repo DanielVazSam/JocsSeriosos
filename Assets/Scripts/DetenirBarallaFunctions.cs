@@ -19,6 +19,8 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
     public Image enemyProgressBar;
     public Image progressBar;
 
+    private bool isReduced = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,52 +39,99 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         UpdateLifeProgressBars();
     }
 
+    private void UpdateLifeProgressBars()
+    {
+        progressBar.fillAmount = (1.0f * vida / VIDA_MAX);
+        enemyProgressBar.fillAmount = (1.0f * vidaEnemy / VIDA_MAX);
+    }
+
 
     // COLPEJAR
     public void FunctionAction1()
     {
-        enemyAction = DoEnemyAction();
-        Debug.Log("enemyAction = " + enemyAction);
-        if(enemyAction.Equals(COLPEJAR))
+        if (!isReduced)
         {
-            string dialogue = "L'enemic ha atacat, però tu també.\nL'enemic ha rebut un cop.";
-            text.text = dialogue;
-            vidaEnemy -= 10;
+            enemyAction = DoEnemyAction();
+            Debug.Log("enemyAction = " + enemyAction);
+            if (enemyAction.Equals(COLPEJAR))
+            {
+                string dialogue = "L'enemic ha atacat, però tu també.\nL'enemic ha rebut un cop.";
+                vidaEnemy -= 10;
+                if (vidaEnemy <= 0)
+                {
+                    dialogue += "\nHas canvat l'enemic i l'has aconseguit reduir. Ràpid, esposa'l.";
+                    isReduced = true;
+                }
+                text.text = dialogue;
+            }
+            else if (enemyAction.Equals(ESQUIVAR))
+            {
+                string dialogue = "L'enemic ha esquivat el teu atac i ha contratacat.";
+                text.text = dialogue;
+                vida -= 15;
+            }
         }
-        else if(enemyAction.Equals(ESQUIVAR))
+        else 
         {
-            string dialogue = "L'enemic ha esquivat el teu atac i ha contratacat.";
+            string dialogue = "L'enemic estava reduit i tu has atacat a l'aire.\n" +
+                "Enhorabona, has deixat que faci la migdiada i es recuperi.";
             text.text = dialogue;
-            vida -= 15;
+            SetEnemyReducedFalse();
         }
     }
 
     // PARAR COP
     public void FunctionAction2()
     {
-        enemyAction = DoEnemyAction();
-        Debug.Log("enemyAction = " + enemyAction); 
-        if (enemyAction.Equals(COLPEJAR))
+        if (!isReduced)
         {
-            string dialogue = "L'enemic ha atacat, però has detingut el cop.";
-            text.text = dialogue;
+            enemyAction = DoEnemyAction();
+            Debug.Log("enemyAction = " + enemyAction);
+            if (enemyAction.Equals(COLPEJAR))
+            {
+                string dialogue = "L'enemic ha atacat, però has detingut el cop.";
+                text.text = dialogue;
+            }
+            else if (enemyAction.Equals(ESQUIVAR))
+            {
+                string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.";
+                text.text = dialogue;
+            }
         }
-        else if (enemyAction.Equals(ESQUIVAR))
+        else
         {
-            string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.";
+            string dialogue = "L'enemic estava reduit i tu has defensat. Ja no sé ni què dir-te...\n" +
+                "L'enemic s'ha recuperat i s'ha aixecat.";
             text.text = dialogue;
+            SetEnemyReducedFalse();
         }
     }
 
     // REDUIR
     public void FunctionAction3()
     {
-        Debug.Log("Reduir");
-        
-
-
-        Debug.Log("Percentatge: ");
-
+        if (isReduced)
+        {
+            float random = Random.Range(0, VIDA_MAX);
+            if (random > vidaEnemy)
+            {
+                string dialogue = "Has aconseguit reduir l'enemic. Ràpid, esposa'l.";
+                text.text = dialogue;
+                isReduced = true;
+            }
+            else
+            {
+                string dialogue = "Has intentat reduir l'enemic, però no has pogut.\nT'has emportat un cop de regal.";
+                text.text = dialogue;
+                vida -= 15;
+            }
+            Debug.Log("vidaEnemy: " + vidaEnemy + ", random: " + random + ", random > vidaEnemy=" + (random > vidaEnemy));
+        }
+        else
+        {
+            string dialogue = "Has re-reduit l'enemic. Guay...";
+            text.text = dialogue;
+        }
     }
 
     // ESPOSAR
@@ -112,10 +161,13 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
     }
 
 
-    private void UpdateLifeProgressBars()
+    private void SetEnemyReducedFalse()
     {
-        progressBar.fillAmount = (1.0f * vida / VIDA_MAX);
-        enemyProgressBar.fillAmount = (1.0f * vidaEnemy / VIDA_MAX);
+        isReduced = false;
+        if (vidaEnemy <= 0) vidaEnemy = 20;
+        else if (vidaEnemy > 80) vidaEnemy = 100;
+        else vidaEnemy += 20;
     }
+
 
 }

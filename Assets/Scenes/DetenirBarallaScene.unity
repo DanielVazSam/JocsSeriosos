@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &37274131 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7899735359447607962, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+  m_PrefabInstance: {fileID: 619764754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &363964117
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +439,7 @@ MonoBehaviour:
   vidaEnemy: 0
   vida: 0
   enemyAction: 
-  text: {fileID: 1278208248}
+  text: {fileID: 37274131}
   enemyProgressBar: {fileID: 1346426088}
   progressBar: {fileID: 1093251831}
 --- !u!1 &912606648
@@ -547,7 +558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.17432474, g: 0.7169812, b: 0, a: 1}
+  m_Color: {r: 0.108877145, g: 0.4528302, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -807,17 +818,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1152595890}
   m_CullTransparentMesh: 1
---- !u!114 &1278208248 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6802282847263916389, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-  m_PrefabInstance: {fileID: 619764754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &1313520138 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5856281697402859243, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7169812, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.5283019, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
