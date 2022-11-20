@@ -31,18 +31,27 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         text.text = "";
         progressBar.fillAmount = 1;
         enemyProgressBar.fillAmount = 1;
+        UpdateLifeProgressBars();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateLifeProgressBars();
+        // UpdateLifeProgressBars();
     }
 
     private void UpdateLifeProgressBars()
     {
-        progressBar.fillAmount = (1.0f * vida / VIDA_MAX);
-        enemyProgressBar.fillAmount = (1.0f * vidaEnemy / VIDA_MAX);
+        /*
+        if (vida > 0)
+        {*/
+            progressBar.fillAmount = (1.0f * vida / VIDA_MAX);
+            enemyProgressBar.fillAmount = (1.0f * vidaEnemy / VIDA_MAX);
+        // }
+        if (vida <= 0)
+        {
+            Debug.Log("bro estas muertisimo");
+        }
     }
 
 
@@ -52,14 +61,13 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         if (!isReduced)
         {
             enemyAction = DoEnemyAction();
-            Debug.Log("enemyAction = " + enemyAction);
             if (enemyAction.Equals(COLPEJAR))
             {
                 string dialogue = "L'enemic ha atacat, però tu també.\nL'enemic ha rebut un cop.";
                 vidaEnemy -= 10;
                 if (vidaEnemy <= 0)
                 {
-                    dialogue += "\nHas canvat l'enemic i l'has aconseguit reduir. Ràpid, esposa'l.";
+                    dialogue += "\nHas cansat l'enemic i l'has aconseguit reduir. Ràpid, esposa'l.";
                     isReduced = true;
                 }
                 text.text = dialogue;
@@ -78,6 +86,7 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
             text.text = dialogue;
             SetEnemyReducedFalse();
         }
+        UpdateLifeProgressBars();
     }
 
     // PARAR COP
@@ -86,7 +95,6 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         if (!isReduced)
         {
             enemyAction = DoEnemyAction();
-            Debug.Log("enemyAction = " + enemyAction);
             if (enemyAction.Equals(COLPEJAR))
             {
                 string dialogue = "L'enemic ha atacat, però has detingut el cop.";
@@ -94,7 +102,10 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
             }
             else if (enemyAction.Equals(ESQUIVAR))
             {
-                string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.";
+                string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.\n" +
+                    "Us ha donat temps de recuperar-vos una mica.";
+                vida += 10;
+                vidaEnemy += 10;
                 text.text = dialogue;
             }
         }
@@ -105,12 +116,13 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
             text.text = dialogue;
             SetEnemyReducedFalse();
         }
+        UpdateLifeProgressBars();
     }
 
     // REDUIR
     public void FunctionAction3()
     {
-        if (isReduced)
+        if (!isReduced)
         {
             float random = Random.Range(0, VIDA_MAX);
             if (random > vidaEnemy)
@@ -125,23 +137,58 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
                 text.text = dialogue;
                 vida -= 15;
             }
-            Debug.Log("vidaEnemy: " + vidaEnemy + ", random: " + random + ", random > vidaEnemy=" + (random > vidaEnemy));
         }
         else
         {
             string dialogue = "Has re-reduit l'enemic. Guay...";
             text.text = dialogue;
         }
+        UpdateLifeProgressBars();
     }
 
     // ESPOSAR
     public void FunctionAction4()
     {
-        Debug.Log("Esposar");
+        bool handcuff = false;
+        float random = Random.Range(0, 100);
+        if (!isReduced)
+        {
+            string dialogue = "L'enemic encara no estava reduit";
+            if(random < 6)
+            {
+                dialogue += ", pero has tingut sort i l'has aconseguit esposar.\nJA ÉS TEU!";
+                text.text = dialogue;
+                handcuff = true;
+            }
+            else
+            {
+                dialogue += ", així que obviament no l'has aconseguit esposar.\nT'enportes un cop de regal.";
+                text.text = dialogue;
+                vida -= 15;
+            }
+        }
+        else
+        {
+            if (random < 81)
+            {
+                string dialogue = "Has aconseguit esposar l'enemic. ENHORABONA!";
+                text.text = dialogue;
+                handcuff = true;
+            }
+            else
+            {
+                string dialogue = "L'enemic estava reduit, però no l'has esposat. Ja s'ha de tenir mala sort...\n" +
+                    "L'enemic s'ha aixecat de nou.";
+                text.text = dialogue;
+                isReduced = false;
+            }
+        }
+        UpdateLifeProgressBars();
 
-        string dialogue = "-1";
-        text.text = dialogue;
-        vidaEnemy -= 1;
+        if(handcuff)
+        {
+
+        }
     }
 
 
