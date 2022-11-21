@@ -51,6 +51,7 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         if (vida <= 0)
         {
             Debug.Log("bro estas muertisimo");
+            transform.gameObject.GetComponent<FinalMinigame>().Final(vida, VIDA_MAX);
         }
     }
 
