@@ -312,6 +312,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2074028146726721399, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2499349065838685136, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -319,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 2633522791393927814, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: title
+      value: Detenir una Baralla
       objectReference: {fileID: 0}
     - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: objectsToHide.Array.size
@@ -351,6 +359,10 @@ PrefabInstance:
     - target: {fileID: 4915818288710365467, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4970786987035832487, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5606644371282534081, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_IsActive
@@ -467,6 +479,10 @@ PrefabInstance:
     - target: {fileID: 6117610107182198847, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6140139730895808528, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6488063688734822104, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder

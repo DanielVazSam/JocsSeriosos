@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinalMinigame : MonoBehaviour
 {
@@ -8,8 +9,17 @@ public class FinalMinigame : MonoBehaviour
     public GameObject[] objectsToHide;
     public GameObject[] objectsToShow;
 
-    public int MAX_SCORE;
-    public int score;
+    public Text scoreText;
+    public Text pauText;
+    public Text dinersText;
+
+    public string title = "Minigame Name";
+
+    private int MAX_SCORE;
+    private int score;
+
+    private int pau;
+    private int diners;
 
 
     // Start is called before the first frame update
@@ -25,7 +35,7 @@ public class FinalMinigame : MonoBehaviour
     }
 
 
-    public void Final(int MAX_SCORE, int score)
+    public void Final(int score, int MAX_SCORE)
     {
         foreach (GameObject objectToHide in objectsToHide)
         {
@@ -36,8 +46,14 @@ public class FinalMinigame : MonoBehaviour
             objectToShow.gameObject.SetActive(true);
         }
 
+        GameObject.Find("FinalMinigameTitle").GetComponent<Text>().text = title;
+
         this.MAX_SCORE = MAX_SCORE;
         this.score = score;
+
+        scoreText.text = score.ToString();
+        pauText.text = "9999";
+        dinersText.text = "9999";
     }
 
 }
