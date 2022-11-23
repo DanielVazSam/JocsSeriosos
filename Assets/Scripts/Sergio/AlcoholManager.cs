@@ -17,6 +17,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     public static float fiabilitatAlcoholimetre = 100;
     public float decrementAlcoholimetre = 5;
     public int maxCiutadans = 6;
+    public const float MAX_ALCOHOL = 10f;
 
     private struct Person { public int quantity; public int fakeValue; };
 
@@ -24,9 +25,12 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     private Person newPerson;
     private float[] minMaxError = { 0.5f, 5f };
     private int numCiutada = 0;
+    private int nRespostes;
+    private int nEncerts = 0;
 
     void Start()
     {
+        nRespostes = maxCiutadans * 2; //Cada ciutadà pot mentir o beure de més
         text.text = "";
         GenerateNewPerson();
     }
@@ -39,14 +43,15 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     //FER CONTROL
     public void FunctionAction1()
     {
-        // consumicions * graus d'alcohol * quantitat d'alcohol per consumició
-        float result = (newPerson.quantity - newPerson.fakeValue) * newPersonAlcohol.quantity * newPersonAlcohol.degrees;
+                      // consumicions * quantitat d'alcohol per consumició * graus d'alcohol 
+        float result = newPerson.quantity * newPersonAlcohol.quantity * newPersonAlcohol.degrees;
         float encert = Random.Range(0f, 100f);
         if (encert > fiabilitatAlcoholimetre)
         {
             Debug.Log("Error!");
             result += Random.Range(minMaxError[0], minMaxError[1]);
         }
+        result = Mathf.Round(result * 100f) / 100f;
         text.text = "L'acoholímetre ha donat: " + result + "%";
 
         fiabilitatAlcoholimetre -= decrementAlcoholimetre;
@@ -62,29 +67,39 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     //DEIXAR PASSAR
     public void FunctionAction3()
     {
-        //Debug.Log("Deixar passar");
-        multa.SetActive(false);
-        GenerateNewPerson();
-        //alcohols.Add(AlcoholValues.GetRandomAlcohol());
-        //mostrarLlista();
+        multar(3);
     }
 
     //MULTAR
     public void FunctionAction4()
     {
-        Debug.Log("Multar");
         multa.SetActive(true);
-
     }
 
+    //Funció que evalua la correctesa de la decisió del jugador.
+    //Es valora que multi a la persona per les coses que ha fet malament i que no multi per una cosa que no ha fet
     public void multar(int cas)
     {
         multa.SetActive(false);
+        float alcoholValue = newPerson.quantity * newPersonAlcohol.quantity * newPersonAlcohol.degrees;
         switch (cas)
         {
-            case 0: Debug.Log("Mentira, mi vida es una mentira");  break;
-            case 1: Debug.Log("Si saben como me pongo pa que me invitan");  break;
-            case 2: Debug.Log("Tremendo maliante");  break;
+            case 0: //Mentida
+                if (newPerson.fakeValue > 0) nEncerts++;
+                if (alcoholValue <= MAX_ALCOHOL) nEncerts++;
+                break;
+            case 1: //Excés
+                if (newPerson.fakeValue == 0) nEncerts++;
+                if (alcoholValue > MAX_ALCOHOL) nEncerts++; 
+                break;
+            case 2: //Ambdues
+                if (newPerson.fakeValue > 0) nEncerts++;
+                if (alcoholValue > MAX_ALCOHOL) nEncerts++;
+                break;
+            case 3: //Cap
+                if (newPerson.fakeValue == 0) nEncerts++;
+                if (alcoholValue <= MAX_ALCOHOL) nEncerts++;
+                break;
         }
         GenerateNewPerson();
     }
@@ -92,22 +107,24 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     //Funció que genera nou perfil de persona segons si ha begut o no
     private void GenerateNewPerson()
     {
-        numCiutada++;
+        
         if (numCiutada < maxCiutadans)
         {
             int i = Random.Range(0, alcohols.Count);
             newPersonAlcohol = alcohols[i];
 
             newPerson = new Person();
-            newPerson.quantity = Random.Range(0, 6);
-            newPerson.fakeValue = mentir ? Random.Range(0, (int)Mathf.Min(newPersonAlcohol.quantity, 3)) : 0;
+            newPerson.quantity = Random.Range(0, 10);
+            newPerson.fakeValue = mentir ? Random.Range(0, newPerson.quantity) : 0;
+            if(newPerson.fakeValue > 0) Debug.Log("Mentida! Ha restat " + newPerson.fakeValue);
 
             int quantity = (int)newPerson.quantity - newPerson.fakeValue;
             text.text = quantity == 0 ? "Bones! Jo no he begut" : "Bones! Jo he begut " + quantity + " de " + newPersonAlcohol.name;
         }
         else
-            Debug.Log("Acabat");
-        
+            Debug.Log($"Acabat! Puntuació: {nEncerts}/{nRespostes}");
+        numCiutada++;
+
     }
 
     private void mostrarLlista()

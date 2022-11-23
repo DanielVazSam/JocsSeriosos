@@ -1468,6 +1468,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: {fileID: 593283181}
   multa: {fileID: 1220101210}
-  mentir: 0
+  mentir: 1
   decrementAlcoholimetre: 5
   maxCiutadans: 6
