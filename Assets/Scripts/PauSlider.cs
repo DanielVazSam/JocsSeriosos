@@ -1,27 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class FinalReturnMapFunction : MonoBehaviour
+public class PauSlider : MonoBehaviour
 {
+
+    public Slider slider;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        slider.value = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        slider.value = 1.0f * Singleton.inst.GetPau() / Singleton.MAX_PAZ;
     }
-
-
-    public void ReturnMap()
-    {
-        Debug.Log("Return Map");
-        SceneManager.LoadScene("MapTest");
-    }
-
 }

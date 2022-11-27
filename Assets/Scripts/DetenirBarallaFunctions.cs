@@ -19,7 +19,11 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
     public Image enemyProgressBar;
     public Image progressBar;
 
+    public BarallaSpriteController police;
+    public BarallaSpriteController enemy;
+
     private bool isReduced = false;
+    private bool isHandcuff = false;
 
 
     // Start is called before the first frame update
@@ -38,20 +42,30 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
     void Update()
     {
         // UpdateLifeProgressBars();
+
+        /*
+        if (vida <= 0)
+        {
+            police.SetReduced();
+        }
+        */
     }
 
     private void UpdateLifeProgressBars()
     {
-        /*
-        if (vida > 0)
-        {*/
-            progressBar.fillAmount = (1.0f * vida / VIDA_MAX);
-            enemyProgressBar.fillAmount = (1.0f * vidaEnemy / VIDA_MAX);
-        // }
+        progressBar.fillAmount = (1.0f * vida / VIDA_MAX);
+        enemyProgressBar.fillAmount = (1.0f * vidaEnemy / VIDA_MAX);
+
         if (vida <= 0)
         {
-            Debug.Log("bro estas muertisimo");
-            transform.gameObject.GetComponent<FinalMinigame>().Final(vida, VIDA_MAX);
+            // Debug.Log("bro estas muertisimo");
+            // transform.gameObject.GetComponent<FinalMinigame>().Final(vida, VIDA_MAX);
+
+            string dialogue = "L'enemic t'ha esgotat. Has perdut...";
+            text.text = dialogue;
+            police.SetReduced();
+
+            StartCoroutine(GoFinalScore());
         }
     }
 
@@ -59,136 +73,173 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
     // COLPEJAR
     public void FunctionAction1()
     {
-        if (!isReduced)
+        if (!isHandcuff && vida > 0)
         {
-            enemyAction = DoEnemyAction();
-            if (enemyAction.Equals(COLPEJAR))
+            if (!isReduced)
             {
-                string dialogue = "L'enemic ha atacat, però tu també.\nL'enemic ha rebut un cop.";
-                vidaEnemy -= 10;
-                if (vidaEnemy <= 0)
+                enemyAction = DoEnemyAction();
+                if (enemyAction.Equals(COLPEJAR))
                 {
-                    dialogue += "\nHas cansat l'enemic i l'has aconseguit reduir. Ràpid, esposa'l.";
-                    isReduced = true;
+                    string dialogue = "L'enemic ha atacat, però tu també.\nL'enemic ha rebut un cop.";
+                    vidaEnemy -= 10;
+                    if (vidaEnemy <= 0)
+                    {
+                        dialogue += "\nHas cansat l'enemic i l'has aconseguit reduir. Ràpid, esposa'l.";
+                        isReduced = true;
+                        enemy.SetReduced();
+                    }
+                    else
+                    {
+                        StartCoroutine(SetPoliceAttacked());
+                        StartCoroutine(SetEnemyHurted());
+                    }
+                    text.text = dialogue;
                 }
-                text.text = dialogue;
+                else if (enemyAction.Equals(ESQUIVAR))
+                {
+                    string dialogue = "L'enemic ha esquivat el teu atac i ha contratacat.";
+                    text.text = dialogue;
+                    vida -= 15;
+                    StartCoroutine(SetPoliceHurted());
+                    StartCoroutine(SetEnemyAttacked());
+                }
             }
-            else if (enemyAction.Equals(ESQUIVAR))
+            else
             {
-                string dialogue = "L'enemic ha esquivat el teu atac i ha contratacat.";
+                string dialogue = "L'enemic estava reduit i tu has atacat a l'aire.\n" +
+                    "Enhorabona, has deixat que faci la migdiada i es recuperi.";
                 text.text = dialogue;
-                vida -= 15;
+                SetEnemyReducedFalse();
+                StartCoroutine(SetPoliceAttacked());
+                enemy.SetIdle();
             }
+            UpdateLifeProgressBars();
         }
-        else 
-        {
-            string dialogue = "L'enemic estava reduit i tu has atacat a l'aire.\n" +
-                "Enhorabona, has deixat que faci la migdiada i es recuperi.";
-            text.text = dialogue;
-            SetEnemyReducedFalse();
-        }
-        UpdateLifeProgressBars();
     }
 
     // PARAR COP
     public void FunctionAction2()
     {
-        if (!isReduced)
+        if (!isHandcuff && vida > 0)
         {
-            enemyAction = DoEnemyAction();
-            if (enemyAction.Equals(COLPEJAR))
+            if (!isReduced)
             {
-                string dialogue = "L'enemic ha atacat, però has detingut el cop.";
-                text.text = dialogue;
+                enemyAction = DoEnemyAction();
+                if (enemyAction.Equals(COLPEJAR))
+                {
+                    string dialogue = "L'enemic ha atacat, però has detingut el cop.";
+                    text.text = dialogue;
+                    if(vida > 0) police.SetIdle();
+                    StartCoroutine(SetEnemyAttacked());
+                }
+                else if (enemyAction.Equals(ESQUIVAR))
+                {
+                    string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.\n" +
+                        "Us ha donat temps de recuperar-vos una mica.";
+                    vida += 10;
+                    vidaEnemy += 10;
+                    text.text = dialogue;
+                    if (vida > 0) police.SetIdle();
+                    enemy.SetIdle();
+                }
             }
-            else if (enemyAction.Equals(ESQUIVAR))
+            else
             {
-                string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.\n" +
-                    "Us ha donat temps de recuperar-vos una mica.";
-                vida += 10;
-                vidaEnemy += 10;
+                string dialogue = "L'enemic estava reduit i tu has defensat. Ja no sé ni què dir-te...\n" +
+                    "L'enemic s'ha recuperat i s'ha aixecat.";
                 text.text = dialogue;
+                SetEnemyReducedFalse();
+                if (vida > 0) police.SetIdle();
+                enemy.SetIdle();
             }
+            UpdateLifeProgressBars();
         }
-        else
-        {
-            string dialogue = "L'enemic estava reduit i tu has defensat. Ja no sé ni què dir-te...\n" +
-                "L'enemic s'ha recuperat i s'ha aixecat.";
-            text.text = dialogue;
-            SetEnemyReducedFalse();
-        }
-        UpdateLifeProgressBars();
     }
 
     // REDUIR
     public void FunctionAction3()
     {
-        if (!isReduced)
+        if (!isHandcuff && vida > 0)
         {
-            float random = Random.Range(0, VIDA_MAX);
-            if (random > vidaEnemy)
+            if (!isReduced)
             {
-                string dialogue = "Has aconseguit reduir l'enemic. Ràpid, esposa'l.";
-                text.text = dialogue;
-                isReduced = true;
+                float random = Random.Range(0, VIDA_MAX);
+                if (random > vidaEnemy)
+                {
+                    string dialogue = "Has aconseguit reduir l'enemic. Ràpid, esposa'l.";
+                    text.text = dialogue;
+                    isReduced = true;
+                    StartCoroutine(SetPoliceAttacked());
+                    enemy.SetReduced();
+                }
+                else
+                {
+                    string dialogue = "Has intentat reduir l'enemic, però no has pogut.\nT'has emportat un cop de regal.";
+                    text.text = dialogue;
+                    vida -= 15;
+                    StartCoroutine(SetPoliceHurted());
+                    StartCoroutine(SetEnemyAttacked());
+                }
             }
             else
             {
-                string dialogue = "Has intentat reduir l'enemic, però no has pogut.\nT'has emportat un cop de regal.";
+                string dialogue = "Has re-reduit l'enemic. Guay...";
                 text.text = dialogue;
-                vida -= 15;
             }
+            UpdateLifeProgressBars();
         }
-        else
-        {
-            string dialogue = "Has re-reduit l'enemic. Guay...";
-            text.text = dialogue;
-        }
-        UpdateLifeProgressBars();
     }
 
     // ESPOSAR
     public void FunctionAction4()
     {
-        bool handcuff = false;
-        float random = Random.Range(0, 100);
-        if (!isReduced)
+        if (!isHandcuff && vida > 0)
         {
-            string dialogue = "L'enemic encara no estava reduit";
-            if(random < 6)
+            float random = Random.Range(0, 100);
+            if (!isReduced)
             {
-                dialogue += ", pero has tingut sort i l'has aconseguit esposar.\nJA ÉS TEU!";
-                text.text = dialogue;
-                handcuff = true;
+                string dialogue = "L'enemic encara no estava reduit";
+                if (random < 5)
+                {
+                    dialogue += ", pero has tingut sort i l'has aconseguit esposar.\nJA ÉS TEU!";
+                    text.text = dialogue;
+                    isHandcuff = true;
+                    if (vida > 0) police.SetIdle();
+                    enemy.SetReduced();
+                }
+                else
+                {
+                    dialogue += ", així que obviament no l'has aconseguit esposar.\nT'enportes un cop de regal.";
+                    text.text = dialogue;
+                    vida -= 15;
+                    StartCoroutine(SetPoliceHurted());
+                    StartCoroutine(SetEnemyAttacked());
+                }
             }
             else
             {
-                dialogue += ", així que obviament no l'has aconseguit esposar.\nT'enportes un cop de regal.";
-                text.text = dialogue;
-                vida -= 15;
+                if (random < 81)
+                {
+                    string dialogue = "Has aconseguit esposar l'enemic. ENHORABONA!";
+                    text.text = dialogue;
+                    isHandcuff = true;
+                }
+                else
+                {
+                    string dialogue = "L'enemic estava reduit, però no l'has esposat. Ja s'ha de tenir mala sort...\n" +
+                        "L'enemic s'ha aixecat de nou.";
+                    text.text = dialogue;
+                    isReduced = false;
+                    if (vida > 0) police.SetIdle();
+                    enemy.SetIdle();
+                }
             }
-        }
-        else
-        {
-            if (random < 81)
-            {
-                string dialogue = "Has aconseguit esposar l'enemic. ENHORABONA!";
-                text.text = dialogue;
-                handcuff = true;
-            }
-            else
-            {
-                string dialogue = "L'enemic estava reduit, però no l'has esposat. Ja s'ha de tenir mala sort...\n" +
-                    "L'enemic s'ha aixecat de nou.";
-                text.text = dialogue;
-                isReduced = false;
-            }
-        }
-        UpdateLifeProgressBars();
+            UpdateLifeProgressBars();
 
-        if(handcuff)
-        {
-
+            if (isHandcuff)
+            {
+                StartCoroutine(GoFinalScore());
+            }
         }
     }
 
@@ -215,6 +266,49 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
         if (vidaEnemy <= 0) vidaEnemy = 20;
         else if (vidaEnemy > 80) vidaEnemy = 100;
         else vidaEnemy += 20;
+    }
+
+
+    IEnumerator GoFinalScore()
+    {
+        yield return new WaitForSeconds(2);
+        transform.gameObject.GetComponent<FinalMinigame>().Final(vida, VIDA_MAX);
+    }
+
+
+
+    IEnumerator SetPoliceHurted()
+    {
+        if (vida > 0)
+        {
+            police.SetHurt();
+            yield return new WaitForSeconds(0.5f);
+            if (vida > 0) police.SetIdle();
+        }
+    }
+
+    IEnumerator SetPoliceAttacked()
+    {
+        if (vida > 0)
+        {
+            police.SetAttack();
+            yield return new WaitForSeconds(0.5f);
+            if (vida > 0) police.SetIdle();
+        }
+    }
+
+    IEnumerator SetEnemyHurted()
+    {
+        enemy.SetHurt();
+        yield return new WaitForSeconds(0.5f);
+        enemy.SetIdle();
+    }
+
+    IEnumerator SetEnemyAttacked()
+    {
+        enemy.SetAttack();
+        yield return new WaitForSeconds(0.5f);
+        enemy.SetIdle();
     }
 
 

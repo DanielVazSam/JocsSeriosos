@@ -35,7 +35,7 @@ public class FinalMinigame : MonoBehaviour
     }
 
 
-    public void Final(int score, int MAX_SCORE)
+    public void Final(int s, int MS)
     {
         foreach (GameObject objectToHide in objectsToHide)
         {
@@ -48,12 +48,30 @@ public class FinalMinigame : MonoBehaviour
 
         GameObject.Find("FinalMinigameTitle").GetComponent<Text>().text = title;
 
-        this.MAX_SCORE = MAX_SCORE;
-        this.score = score;
+        MAX_SCORE = MS;
+        if(s < 0) score = 0;
+        else score = s;
+
+
+        int prop = 100 * score / MAX_SCORE;
+        int rangePau = Random.Range(4, 8);
+        int rangeDiners = Random.Range(1, 3);
+
+
+        int newPau = prop * rangePau;
+        int newDiners = prop * rangeDiners;
+
+
+        if(Singleton.inst != null)
+        {
+            Singleton.inst.AddPau(newPau);
+            Singleton.inst.AddDiners(newDiners);
+        }
+
 
         scoreText.text = score.ToString();
-        pauText.text = "9999";
-        dinersText.text = "9999";
+        pauText.text = newPau.ToString();
+        dinersText.text = newDiners.ToString();
     }
 
 }
