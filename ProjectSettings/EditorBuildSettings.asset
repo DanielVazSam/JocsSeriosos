@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DetenirBarallaScene.unity
     guid: dc8719cf1a73d584cb1f4e892b654db8
+  - enabled: 1
+    path: Assets/Scenes/BotigaScene.unity
+    guid: 251728f626ff7274faf0642daf4c5c89
   m_configObjects: {}
