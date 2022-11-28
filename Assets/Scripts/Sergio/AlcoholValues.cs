@@ -10,7 +10,7 @@ public static class AlcoholValues{
         public string name;
     }
 
-    //------------------------Botellas------------------------
+   //------------------------Botellas------------------------
     public static Alcohol Cerveza = new Alcohol() { quantity = 0.33f, degrees = 5, name = "cervesa" };
     public static Alcohol Sidra = new Alcohol() { quantity = 0.7f, degrees = 5, name = "sidra" };
 
