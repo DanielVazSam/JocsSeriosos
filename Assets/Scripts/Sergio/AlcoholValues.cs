@@ -12,7 +12,7 @@ public static class AlcoholValues{
 
    //------------------------Botellas------------------------
     public static Alcohol Cerveza = new Alcohol() { quantity = 0.33f, degrees = 5, name = "cervesa" };
-    public static Alcohol Sidra = new Alcohol() { quantity = 0.7f, degrees = 5, name = "sidra" };
+    public static Alcohol Sidra = new Alcohol() { quantity = 0.33f, degrees = 5, name = "sidra" };
 
     //------------------------Copa---------------------------
     public static Alcohol Vino = new Alcohol() { quantity = 0.1f, degrees = 12, name = "vi" };
