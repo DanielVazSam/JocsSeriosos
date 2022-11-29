@@ -129,13 +129,14 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
             newPerson = new Person();
             newPerson.quantity = Random.Range(0, 10);
             newPerson.fakeValue = mentir ? Random.Range(0, newPerson.quantity) : 0;
-            if(newPerson.fakeValue > 0) Debug.Log("Mentida! Ha restat " + newPerson.fakeValue);
+            if (newPerson.fakeValue > 0) Debug.Log("Mentida! Ha restat " + newPerson.fakeValue);
 
             int quantity = (int)newPerson.quantity - newPerson.fakeValue;
             text.text = quantity == 0 ? "Bones! Jo no he begut" : "Bones! Jo he begut " + quantity + " de " + newPersonAlcohol.name;
         }
         else
-            Debug.Log($"Acabat! Puntuació: {nEncerts}/{nRespostes}");
+            this.GetComponent<FinalMinigame>().Final(nEncerts,nRespostes);
+            //Debug.Log($"Acabat! Puntuació: {nEncerts}/{nRespostes}");
         numCiutada++;
         StartCoroutine(Move(1));
     }

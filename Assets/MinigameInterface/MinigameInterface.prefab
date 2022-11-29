@@ -96,12 +96,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9119195d4692e864bac1f87392322269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectsToHide: []
-  objectsToShow: []
+  objectsToHide:
+  - {fileID: 2633522791393927814}
+  - {fileID: 5606644371282534081}
+  - {fileID: 0}
+  - {fileID: 0}
+  objectsToShow:
+  - {fileID: 5147223685861516772}
   scoreText: {fileID: 3232831761124706698}
   pauText: {fileID: 3052723969499046046}
   dinersText: {fileID: 2221505148815823383}
-  title: 
+  title: Detenir una Baralla
 --- !u!1 &1706525614817986249
 GameObject:
   m_ObjectHideFlags: 0

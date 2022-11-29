@@ -248,7 +248,7 @@ RectTransform:
   - {fileID: 1093251830}
   - {fileID: 1556311552}
   m_Father: {fileID: 1313520138}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -402,7 +402,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 951769693511782433, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 951769693511782433, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_SizeDelta.y
@@ -429,26 +429,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-      propertyPath: title
-      value: Detenir una Baralla
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-      propertyPath: objectsToHide.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-      propertyPath: objectsToShow.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-      propertyPath: objectsToHide.Array.data[0]
-      value: 
-      objectReference: {fileID: 772662470}
-    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-      propertyPath: objectsToHide.Array.data[1]
-      value: 
-      objectReference: {fileID: 800751335}
-    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: objectsToHide.Array.data[2]
       value: 
       objectReference: {fileID: 426742498}
@@ -456,10 +436,6 @@ PrefabInstance:
       propertyPath: objectsToHide.Array.data[3]
       value: 
       objectReference: {fileID: 1152595890}
-    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-      propertyPath: objectsToShow.Array.data[0]
-      value: 
-      objectReference: {fileID: 1942637600}
     - target: {fileID: 4915818288710365467, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -602,7 +578,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6585983324601664597, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6747610274995734810, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
@@ -632,16 +608,6 @@ MonoBehaviour:
   progressBar: {fileID: 1093251831}
   police: {fileID: 568542389}
   enemy: {fileID: 1634044967}
---- !u!1 &772662470 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2633522791393927814, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-  m_PrefabInstance: {fileID: 619764754}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &800751335 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5606644371282534081, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-  m_PrefabInstance: {fileID: 619764754}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &912606648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,8 +1239,3 @@ MonoBehaviour:
   hurt: {fileID: 21300000, guid: 8cf57812ae069584593357aaa2cf9514, type: 3}
   reduced: {fileID: 21300000, guid: d836b939033e390469281b2603618b62, type: 3}
   current: {fileID: 1634044965}
---- !u!1 &1942637600 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5147223685861516772, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
-  m_PrefabInstance: {fileID: 619764754}
-  m_PrefabAsset: {fileID: 0}

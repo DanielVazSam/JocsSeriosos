@@ -138,6 +138,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: title
+      value: Mesurar alcohol
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: objectsToHide.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: objectsToHide.Array.data[2]
+      value: 
+      objectReference: {fileID: 973854789}
+    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: objectsToHide.Array.data[3]
+      value: 
+      objectReference: {fileID: 1839287029}
+    - target: {fileID: 4616543875461083701, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: objectsToHide.Array.data[4]
+      value: 
+      objectReference: {fileID: 1901531427}
     - target: {fileID: 5856281697402859236, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: action1Text
       value: Fer control
@@ -1715,6 +1735,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1858409649}
   m_CullTransparentMesh: 1
+--- !u!1 &1901531427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4351368673076557216, guid: ee9eb6962b1338e419b5a3030c66354f, type: 3}
+  m_PrefabInstance: {fileID: 6619946811582906567}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2130521362 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 692219601622484610, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
