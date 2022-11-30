@@ -10,14 +10,13 @@ public class ChangeToMission : MonoBehaviour
 
     public void ChangeTo()
     {
-        switch(mission)
+        Singleton.inst.SetMission(this.transform.position);
+        switch (mission)
         {
             case Missions.alcohol:
-                Debug.Log("Canvi a missió alcoholèmia");
                 SceneManager.LoadScene("AlcoholScene");
                 break;
             case Missions.detenirBaralla:
-                Debug.Log("Canvi a missió detenir baralla");
                 SceneManager.LoadScene("DetenirBarallaScene");
                 break;
         }

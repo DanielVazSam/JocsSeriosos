@@ -66,6 +66,7 @@ public class FinalMinigame : MonoBehaviour
         {
             Singleton.inst.AddPau(newPau);
             Singleton.inst.AddDiners(newDiners);
+            Singleton.inst.SetMissionPassed();
         }
 
 
