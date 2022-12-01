@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Singleton : MonoBehaviour
 {
-
     public static Singleton inst;
 
     public static int MAX_PAZ = 1000;
@@ -12,11 +11,21 @@ public class Singleton : MonoBehaviour
 
     private int diners;
 
-    //Int guarda la missio que s'ha de generar
+    //Int guarda la missio que s'ha de generar (0 alcohol, 1 baralla)
     private List<KeyValuePair<Vector3, int>> missions = new List<KeyValuePair<Vector3, int>>();
     private List<bool> missionsPassed = new List<bool>();
     private Vector3 actualMission = new Vector3();
+    private int nMissionsPassed = 0;
 
+    public struct Person { public int quantity; public int fakeValue; public AlcoholValues.Alcohol alcohol; };
+
+    private int fiabilitatAlcoholimetre = 100;
+    private List<Person> peopleFailed = new List<Person>();
+    private List<AlcoholValues.Alcohol> alcohols = new List<AlcoholValues.Alcohol> {
+        AlcoholValues.Cerveza,
+        AlcoholValues.Vino,
+        AlcoholValues.Ron,
+        AlcoholValues.Tequila };
 
     private void Awake()
     {
@@ -27,15 +36,11 @@ public class Singleton : MonoBehaviour
         }
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         pau = 0;
         diners = 0;
     }
-
-    // Update is called once per frame
     void Update()
     {
         // Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
@@ -47,7 +52,6 @@ public class Singleton : MonoBehaviour
             Debug.Log("Pau = " + pau);
         }
     }
-
 
     public int GetPau()
     {
@@ -69,6 +73,8 @@ public class Singleton : MonoBehaviour
         diners += plus;
     }
 
+    //Mission generator Functions
+    #region
     public bool MissionsCreated()
     {
         return missions != null && missions.Count > 0;
@@ -98,7 +104,39 @@ public class Singleton : MonoBehaviour
     public void SetMissionPassed()
     {
         missionsPassed[GetIndexByPos(actualMission)] = true;
+        nMissionsPassed++;
     }
+    #endregion
+
+    //Alcohol 
+    #region
+    public void AddPerson(Person person) 
+    { 
+        peopleFailed.Add(person);
+    }
+
+    public List<Person> GetListFinalMision()
+    {
+        if(nMissionsPassed == 6) return peopleFailed;
+        else return null;
+    }
+    public List<AlcoholValues.Alcohol> GetAlcohols()
+    {
+        return alcohols;
+    }
+    public void AddAlcohol(AlcoholValues.Alcohol newAlcohol)
+    {
+        alcohols.Add(newAlcohol);
+    }
+    public int GetFiabilitat()
+    {
+        return fiabilitatAlcoholimetre;
+    }
+    public void ChangeFiabilitat(int newFiabilitat)
+    {
+        fiabilitatAlcoholimetre = newFiabilitat > 0 ? newFiabilitat : fiabilitatAlcoholimetre + newFiabilitat;
+    }
+    #endregion
 
     private int GetIndexByPos(Vector3 pos)
     {

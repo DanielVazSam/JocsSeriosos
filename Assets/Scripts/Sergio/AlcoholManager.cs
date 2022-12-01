@@ -5,26 +5,18 @@ using UnityEngine.UI;
 
 public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 {
-    public List<AlcoholValues.Alcohol> alcohols = new List<AlcoholValues.Alcohol> { 
-        AlcoholValues.Cerveza, 
-        AlcoholValues.Vino, 
-        AlcoholValues.Ron, 
-        AlcoholValues.Tequila };
+    public List<AlcoholValues.Alcohol> alcohols;
 
     public Text text;
     public GameObject multa;
     public GameObject enemic;
     public Sprite[] enemicSprites;
     public bool mentir = false;
-    public static float fiabilitatAlcoholimetre = 100;
-    public float decrementAlcoholimetre = 5;
+    public int decrementAlcoholimetre = 5;
     public int maxCiutadans = 6;
     public const float MAX_ALCOHOL = 10f;
 
-    private struct Person { public int quantity; public int fakeValue; };
-
-    private AlcoholValues.Alcohol newPersonAlcohol;
-    private Person newPerson;
+    private Singleton.Person newPerson;
     private float[] minMaxError = { 0.5f, 5f };
     private int numCiutada = 0;
     private int nRespostes;
@@ -32,16 +24,22 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     private int nEncerts = 0;
     private bool isDoingAnimation = false;
 
+    private List<Singleton.Person> peopleFinalMission = new List<Singleton.Person>();
+    bool isFinalMission = false;
+
     void Start()
     {
+        peopleFinalMission = Singleton.inst.GetListFinalMision();
+        if(peopleFinalMission != null)
+        {
+            isFinalMission = true;
+            Debug.Log("Final mission!!!!");
+        }
+
+        alcohols = Singleton.inst.GetAlcohols();
         nRespostes = maxCiutadans * 2; //Cada ciutadà pot mentir o beure de més
         text.text = "";
         GenerateNewPerson();
-    }
-
-    public static void RepararAlcholimetre()
-    {
-        fiabilitatAlcoholimetre = 100;
     }
 
     //FER CONTROL
@@ -50,9 +48,9 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         if(!isDoingAnimation)
         {
             // consumicions * quantitat d'alcohol per consumició * graus d'alcohol 
-            float result = newPerson.quantity * newPersonAlcohol.quantity * newPersonAlcohol.degrees;
+            float result = newPerson.quantity * newPerson.alcohol.quantity * newPerson.alcohol.degrees;
             float encert = Random.Range(0f, 100f);
-            if (encert > fiabilitatAlcoholimetre)
+            if (encert > Singleton.inst.GetFiabilitat())
             {
                 Debug.Log("Error!");
                 result += Random.Range(minMaxError[0], minMaxError[1]);
@@ -60,7 +58,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
             result = Mathf.Round(result * 100f) / 100f;
             text.text = "L'acoholímetre ha donat: " + result + "%";
 
-            fiabilitatAlcoholimetre -= decrementAlcoholimetre;
+            Singleton.inst.ChangeFiabilitat(-decrementAlcoholimetre);
         } 
     }
 
@@ -70,7 +68,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         if (!isDoingAnimation)
         {
             int quantity = (int)newPerson.quantity - newPerson.fakeValue;
-            text.text = quantity == 0 ? "Bones! Jo no he begut" : "Bones! Jo he begut " + quantity + " de " + newPersonAlcohol.name;
+            text.text = AlcoholText(quantity, newPerson.alcohol);
         }
     }
 
@@ -92,7 +90,8 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     {
         isDoingAnimation = true;
         multa.SetActive(false);
-        float alcoholValue = newPerson.quantity * newPersonAlcohol.quantity * newPersonAlcohol.degrees;
+        float alcoholValue = newPerson.quantity * newPerson.alcohol.quantity * newPerson.alcohol.degrees;
+        int nEncertsBefore = nEncerts;
         switch (cas)
         {
             case 0: //Mentida
@@ -112,6 +111,8 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
                 if (alcoholValue <= MAX_ALCOHOL) nEncerts++;
                 break;
         }
+        if (nEncertsBefore + 2 > nEncerts)
+            Singleton.inst.AddPerson(newPerson);
         StartCoroutine(Move(0));
     }
 
@@ -119,26 +120,43 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     private void GenerateNewPerson()
     {
         isDoingAnimation = true;
+
         if (numCiutada < maxCiutadans)
         {
+            if (isFinalMission) //S'agafa de la llista
+            {
+                newPerson = peopleFinalMission[numCiutada];
+            }
+            else //Es genera aleatòriament 
+            {
+                int i = Random.Range(0, alcohols.Count);
+                newPerson.alcohol = alcohols[i];
+
+                newPerson = new Singleton.Person();
+                newPerson.quantity = Random.Range(0, 10);
+                newPerson.fakeValue = mentir ? Random.Range(0, newPerson.quantity) : 0;
+            }
+
             enemic.GetComponent<SpriteRenderer>().sprite = enemicSprites[Random.Range(0, 3)];
-
-            int i = Random.Range(0, alcohols.Count);
-            newPersonAlcohol = alcohols[i];
-
-            newPerson = new Person();
-            newPerson.quantity = Random.Range(0, 10);
-            newPerson.fakeValue = mentir ? Random.Range(0, newPerson.quantity) : 0;
-            if (newPerson.fakeValue > 0) Debug.Log("Mentida! Ha restat " + newPerson.fakeValue);
-
             int quantity = (int)newPerson.quantity - newPerson.fakeValue;
-            text.text = quantity == 0 ? "Bones! Jo no he begut" : "Bones! Jo he begut " + quantity + " de " + newPersonAlcohol.name;
+            text.text = AlcoholText(quantity, newPerson.alcohol);
         }
         else
             this.GetComponent<FinalMinigame>().Final(nEncerts,nRespostes);
             //Debug.Log($"Acabat! Puntuació: {nEncerts}/{nRespostes}");
         numCiutada++;
         StartCoroutine(Move(1));
+    }
+
+    private string AlcoholText(int quantity, AlcoholValues.Alcohol alcohol)
+    {
+        string res = "Bones! Jo ";
+        if (quantity == 0) res += "no he begut";
+        else if (alcohol.quantity == 0.33f) res += " he begut " + quantity + " ampolles de " + newPerson.alcohol.name;
+        else if (alcohol.quantity == 0.1f) res += " he begut " + quantity + " copes de " + newPerson.alcohol.name;
+        else if (alcohol.quantity == 0.05f) res += " he begut " + quantity + " combinats de " + newPerson.alcohol.name;
+        else if (alcohol.quantity == 0.03f) res += " he begut " + quantity + " xarrups de " + newPerson.alcohol.name;
+        return res;
     }
 
     //Esquerra: 0, Dreta: 1
