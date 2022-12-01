@@ -18,6 +18,7 @@ public class Singleton : MonoBehaviour
     private int nMissionsPassed = 0;
 
     public struct Person { public int quantity; public int fakeValue; public AlcoholValues.Alcohol alcohol; };
+    public static int N_MISSIONS = 8;
 
     private int fiabilitatAlcoholimetre = 100;
     private List<Person> peopleFailed = new List<Person>();
@@ -103,8 +104,11 @@ public class Singleton : MonoBehaviour
 
     public void SetMissionPassed()
     {
-        missionsPassed[GetIndexByPos(actualMission)] = true;
-        nMissionsPassed++;
+        if(nMissionsPassed < N_MISSIONS)
+        {
+            missionsPassed[GetIndexByPos(actualMission)] = true;
+            nMissionsPassed++;
+        }
     }
     #endregion
 
@@ -117,7 +121,7 @@ public class Singleton : MonoBehaviour
 
     public List<Person> GetListFinalMision()
     {
-        if(nMissionsPassed == 6) return peopleFailed;
+        if(nMissionsPassed == N_MISSIONS) return peopleFailed;
         else return null;
     }
     public List<AlcoholValues.Alcohol> GetAlcohols()

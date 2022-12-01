@@ -68,14 +68,14 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         if (!isDoingAnimation)
         {
             int quantity = (int)newPerson.quantity - newPerson.fakeValue;
-            text.text = AlcoholText(quantity, newPerson.alcohol);
+            text.text = AlcoholText();
         }
     }
 
     //DEIXAR PASSAR
     public void FunctionAction3()
     {
-        if(!isDoingAnimation) multar(3);
+        if(!isDoingAnimation) Multar(3);
     }
 
     //MULTAR
@@ -86,7 +86,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 
     //Funció que evalua la correctesa de la decisió del jugador.
     //Es valora que multi a la persona per les coses que ha fet malament i que no multi per una cosa que no ha fet
-    public void multar(int cas)
+    public void Multar(int cas)
     {
         isDoingAnimation = true;
         multa.SetActive(false);
@@ -129,17 +129,16 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
             }
             else //Es genera aleatòriament 
             {
+                newPerson = new Singleton.Person();
+
                 int i = Random.Range(0, alcohols.Count);
                 newPerson.alcohol = alcohols[i];
-
-                newPerson = new Singleton.Person();
+                
                 newPerson.quantity = Random.Range(0, 10);
                 newPerson.fakeValue = mentir ? Random.Range(0, newPerson.quantity) : 0;
             }
-
             enemic.GetComponent<SpriteRenderer>().sprite = enemicSprites[Random.Range(0, 3)];
-            int quantity = (int)newPerson.quantity - newPerson.fakeValue;
-            text.text = AlcoholText(quantity, newPerson.alcohol);
+            text.text = AlcoholText();
         }
         else
             this.GetComponent<FinalMinigame>().Final(nEncerts,nRespostes);
@@ -148,14 +147,16 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         StartCoroutine(Move(1));
     }
 
-    private string AlcoholText(int quantity, AlcoholValues.Alcohol alcohol)
+    private string AlcoholText()
     {
-        string res = "Bones! Jo ";
-        if (quantity == 0) res += "no he begut";
-        else if (alcohol.quantity == 0.33f) res += " he begut " + quantity + " ampolles de " + newPerson.alcohol.name;
-        else if (alcohol.quantity == 0.1f) res += " he begut " + quantity + " copes de " + newPerson.alcohol.name;
-        else if (alcohol.quantity == 0.05f) res += " he begut " + quantity + " combinats de " + newPerson.alcohol.name;
-        else if (alcohol.quantity == 0.03f) res += " he begut " + quantity + " xarrups de " + newPerson.alcohol.name;
+        int quantity = (int)newPerson.quantity - newPerson.fakeValue;
+
+        string res = "Bones! Jo";
+        if (quantity == 0) res += " no he begut";
+        else if (newPerson.alcohol.quantity == 0.33f) res += " he begut " + quantity + " ampolles de " + newPerson.alcohol.name;
+        else if (newPerson.alcohol.quantity == 0.1f) res += " he begut " + quantity + " copes de " + newPerson.alcohol.name;
+        else if (newPerson.alcohol.quantity == 0.05f) res += " he begut " + quantity + " combinats de " + newPerson.alcohol.name;
+        else if (newPerson.alcohol.quantity == 0.03f) res += " he begut " + quantity + " xarrups de " + newPerson.alcohol.name;
         return res;
     }
 

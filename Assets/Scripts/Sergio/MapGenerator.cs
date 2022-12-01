@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MapGenerator : MonoBehaviour
 {
     //Quantes missions es desitjen crear
-    public int missionsToSpawn;
+    private int missionsToSpawn = Singleton.N_MISSIONS;
     public GameObject canvas;
     //Lista de prefabs dels botons a generar
     public GameObject[] buttonMisions;
@@ -51,18 +51,25 @@ public class MapGenerator : MonoBehaviour
         }
         else
         {
-            List<KeyValuePair<Vector3, int>> aux = Singleton.inst.GetMissions();
-            int i = 0;
-            foreach(var mis in aux)
+            if (Singleton.inst.GetListFinalMision() != null)
             {
-                GameObject go = Instantiate(buttonMisions[mis.Value], canvas.transform);
-                go.transform.position = mis.Key;
-                if (Singleton.inst.MissionPassed(mis.Key))
+                GameObject go = Instantiate(buttonMisions[0], canvas.transform);
+            }
+            else
+            {
+                List<KeyValuePair<Vector3, int>> aux = Singleton.inst.GetMissions();
+                int i = 0;
+                foreach (var mis in aux)
                 {
-                    go.GetComponent<Image>().color = passed;
-                    go.GetComponent<Button>().interactable = false;
+                    GameObject go = Instantiate(buttonMisions[mis.Value], canvas.transform);
+                    go.transform.position = mis.Key;
+                    if (Singleton.inst.MissionPassed(mis.Key))
+                    {
+                        go.GetComponent<Image>().color = passed;
+                        go.GetComponent<Button>().interactable = false;
+                    }
+                    i++;
                 }
-                i++;
             }
         }
         
