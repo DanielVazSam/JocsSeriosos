@@ -12,21 +12,18 @@ public class Singleton : MonoBehaviour
     private int diners;
 
     //Int guarda la missio que s'ha de generar (0 alcohol, 1 baralla)
-    private List<KeyValuePair<Vector3, int>> missions = new List<KeyValuePair<Vector3, int>>();
-    private List<bool> missionsPassed = new List<bool>();
-    private Vector3 actualMission = new Vector3();
-    private int nMissionsPassed = 0;
+    private List<KeyValuePair<Vector3, int>> missions;
+    private List<bool> missionsPassed;
+    private Vector3 actualMission; 
+    private int nMissionsPassed;
 
     public struct Person { public int quantity; public int fakeValue; public AlcoholValues.Alcohol alcohol; };
     public static int N_MISSIONS = 8;
 
-    private int fiabilitatAlcoholimetre = 100;
-    private List<Person> peopleFailed = new List<Person>();
-    private List<AlcoholValues.Alcohol> alcohols = new List<AlcoholValues.Alcohol> {
-        AlcoholValues.Cerveza,
-        AlcoholValues.Vino,
-        AlcoholValues.Ron,
-        AlcoholValues.Tequila };
+    private int fiabilitatAlcoholimetre;
+    private List<Person> peopleFailed;
+    private List<AlcoholValues.Alcohol> alcohols;
+
 
     private void Awake()
     {
@@ -41,10 +38,24 @@ public class Singleton : MonoBehaviour
     {
         pau = 0;
         diners = 0;
+
+        missions = new List<KeyValuePair<Vector3, int>>();
+        missionsPassed = new List<bool>();
+        actualMission = new Vector3();
+        nMissionsPassed = 0;
+
+        fiabilitatAlcoholimetre = 100;
+        peopleFailed = new List<Person>();
+        alcohols = new List<AlcoholValues.Alcohol> {
+            AlcoholValues.Cerveza,
+            AlcoholValues.Vino,
+            AlcoholValues.Ron,
+            AlcoholValues.Tequila 
+        };
     }
+
     void Update()
     {
-        // Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         // Debug.Log("Pau = " + pau);
 
         if(Input.GetKeyDown(KeyCode.P))
