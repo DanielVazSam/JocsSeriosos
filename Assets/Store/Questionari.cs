@@ -8,9 +8,13 @@ public class Questionari : MonoBehaviour
 
     public Toggle[] toggles;
     public GameObject questions;
+    public Button[] buttons; //0 -> enviar, 1 -> reparar
+    public OpenCloseQuestions scriptOpenClose;
 
     private bool[] values;
     private List<bool> answers = new List<bool>();
+    private const int MAX_PRICE = 200;
+    private int repairPrice;
 
 
     // Start is called before the first frame update
@@ -26,6 +30,14 @@ public class Questionari : MonoBehaviour
         
     }
 
+    public void Repair()
+    {
+        if (repairPrice <= Singleton.inst.GetDiners())
+        {
+            Singleton.inst.RepairAlcoholimeter(repairPrice);
+            scriptOpenClose.CloseQuestions();
+        }
+    }
 
     public void GetAllValues()
     {
@@ -37,12 +49,18 @@ public class Questionari : MonoBehaviour
             toggleQuestion.GetChild(0).GetComponent<Image>().color = values[i] == answers[i] ? Color.green : Color.red;
             if(values[i] == answers[i]) corrects++;
         }
-
+        buttons[0].gameObject.SetActive(false);
+        repairPrice = (int)(MAX_PRICE - 100 * (corrects / 10f));
+        buttons[1].transform.GetChild(0).GetComponent<Text>().text = "Reparar (" + repairPrice.ToString() + ")";
+        buttons[1].gameObject.SetActive(true);
         Debug.Log($"L'usuari ha fet {corrects}/10 bé");
     }
 
     public void GenerateQuestions()
     {
+        buttons[0].gameObject.SetActive(true);
+        buttons[1].gameObject.SetActive(false);
+
         List<AlcoholValues.Alcohol> alcohols = Singleton.inst.GetAlcohols();
         answers = new List<bool>();
         foreach(Transform t in questions.transform)
@@ -60,6 +78,7 @@ public class Questionari : MonoBehaviour
 
             t.GetChild(2).GetChild(0).GetComponent<Image>().color = Color.white;
             t.GetChild(2).GetComponent<Toggle>().interactable = true;
+            t.GetChild(2).GetComponent<Toggle>().isOn = true;
         }
     }
 

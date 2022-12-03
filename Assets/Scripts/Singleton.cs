@@ -129,7 +129,14 @@ public class Singleton : MonoBehaviour
     { 
         peopleFailed.Add(person);
     }
-
+    public void RepairAlcoholimeter(int price)
+    {
+        if(price <= diners)
+        {
+            fiabilitatAlcoholimetre = 100;
+            diners -= price;
+        }
+    }
     public List<Person> GetListFinalMision()
     {
         if(nMissionsPassed == N_MISSIONS) return peopleFailed;
