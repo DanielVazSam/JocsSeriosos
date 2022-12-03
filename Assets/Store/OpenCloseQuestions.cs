@@ -23,6 +23,7 @@ public class OpenCloseQuestions : MonoBehaviour
 
     public void OpenQuestions()
     {
+        questions.GetComponent<Questionari>().GenerateQuestions();
         questions.SetActive(true);
     }
 

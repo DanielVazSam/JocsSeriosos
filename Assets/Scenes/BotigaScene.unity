@@ -3311,6 +3311,7 @@ MonoBehaviour:
   - {fileID: 205758612}
   - {fileID: 1790983888}
   - {fileID: 289632121}
+  questions: {fileID: 1418620350}
 --- !u!1 &969415971
 GameObject:
   m_ObjectHideFlags: 0
@@ -4395,7 +4396,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Send
+  m_Text: Enviar
 --- !u!222 &1212264812
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5827,7 +5828,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Mesurement
+  m_Text: Mesura
 --- !u!222 &1623584135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5906,7 +5907,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Close
+  m_Text: Tancar
 --- !u!222 &1661248762
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6697,7 +6698,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Is it true?
+  m_Text: "\xC9s cert?"
 --- !u!222 &2094464167
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -42,6 +42,8 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         GenerateNewPerson();
     }
 
+    //Decisions interfícies
+    #region
     //FER CONTROL
     public void FunctionAction1()
     {
@@ -83,6 +85,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     {
         if(!isDoingAnimation) multa.SetActive(true);
     }
+    #endregion
 
     //Funció que evalua la correctesa de la decisió del jugador.
     //Es valora que multi a la persona per les coses que ha fet malament i que no multi per una cosa que no ha fet
