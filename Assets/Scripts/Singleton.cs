@@ -24,6 +24,8 @@ public class Singleton : MonoBehaviour
     private List<Person> peopleFailed;
     private List<AlcoholValues.Alcohol> alcohols;
 
+    private bool isIntroduction;
+
 
     private void Awake()
     {
@@ -52,6 +54,8 @@ public class Singleton : MonoBehaviour
             AlcoholValues.Ron,
             AlcoholValues.Tequila 
         };
+
+        isIntroduction = true;
     }
 
     void Update()
@@ -169,6 +173,16 @@ public class Singleton : MonoBehaviour
             i++;
         }
         return i;
+    }
+
+    public bool GetIsIntroduction()
+    {
+        return isIntroduction;
+    }
+
+    public void SetIsIntroduction(bool ii)
+    {
+        isIntroduction = ii;
     }
 
 }
