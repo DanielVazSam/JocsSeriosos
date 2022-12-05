@@ -25,6 +25,7 @@ public class Singleton : MonoBehaviour
     private List<AlcoholValues.Alcohol> alcohols;
 
     private bool isIntroduction;
+    private bool isStoreTutorial;
 
 
     private void Awake()
@@ -56,6 +57,7 @@ public class Singleton : MonoBehaviour
         };
 
         isIntroduction = true;
+        isStoreTutorial = true;
     }
 
     void Update()
@@ -183,6 +185,16 @@ public class Singleton : MonoBehaviour
     public void SetIsIntroduction(bool ii)
     {
         isIntroduction = ii;
+    }
+
+    public bool GetIsStoreTutorial()
+    {
+        return isStoreTutorial;
+    }
+
+    public void SetIsStoreTutorial(bool ii)
+    {
+        isStoreTutorial = ii;
     }
 
 }

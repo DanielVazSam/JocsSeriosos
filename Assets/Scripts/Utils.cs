@@ -7,12 +7,17 @@ public class Utils : MonoBehaviour
 {
 
     [SerializeField] GameObject introduction;
+    [SerializeField] GameObject storeTutorial;
 
 
     private void Start()
     {
         if (introduction != null) { 
             introduction.SetActive(Singleton.inst.GetIsIntroduction());
+        }
+        if (storeTutorial != null)
+        {
+            storeTutorial.SetActive(Singleton.inst.GetIsStoreTutorial());
         }
     }
 
@@ -31,6 +36,12 @@ public class Utils : MonoBehaviour
     {
         Singleton.inst.SetIsIntroduction(false);
         introduction.SetActive(false);
+    }
+
+    public void CloseStoreTutorial()
+    {
+        Singleton.inst.SetIsStoreTutorial(false);
+        storeTutorial.SetActive(false);
     }
 
 }
