@@ -11,7 +11,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     public GameObject multa;
     public GameObject enemic;
     public Sprite[] enemicSprites;
-    public bool mentir = false;
+    
     public int decrementAlcoholimetre = 5;
     public int maxCiutadans = 6;
     public const float MAX_ALCOHOL = 10f;
@@ -23,12 +23,14 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
     private float[] positions = { -11.43f, -3.12f };
     private int nEncerts = 0;
     private bool isDoingAnimation = false;
+    private bool mentir = false;
 
     private List<Singleton.Person> peopleFinalMission = new List<Singleton.Person>();
     bool isFinalMission = false;
 
     void Start()
     {
+        //mentir = Singleton.inst.Mentir();
         peopleFinalMission = Singleton.inst.GetListFinalMision();
         if(peopleFinalMission != null)
         {
@@ -60,7 +62,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
             result = Mathf.Round(result * 100f) / 100f;
             text.text = "L'acoholímetre ha donat: " + result + "%";
 
-            Singleton.inst.ChangeFiabilitat(-decrementAlcoholimetre);
+            if(mentir) Singleton.inst.ChangeFiabilitat(-decrementAlcoholimetre);
         } 
     }
 
@@ -136,7 +138,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 
                 int i = Random.Range(0, alcohols.Count);
                 newPerson.alcohol = alcohols[i];
-                
+
                 newPerson.quantity = Random.Range(0, 10);
                 newPerson.fakeValue = mentir ? Random.Range(0, newPerson.quantity) : 0;
             }
@@ -144,7 +146,11 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
             text.text = AlcoholText();
         }
         else
-            this.GetComponent<FinalMinigame>().Final(nEncerts,nRespostes);
+        {
+            if ( ((float)nEncerts) / nRespostes >= 0.85f) 
+                Singleton.inst.AddAlcohol(AlcoholValues.GetRandomAlcohol());
+            this.GetComponent<FinalMinigame>().Final(nEncerts, nRespostes);
+        }
             //Debug.Log($"Acabat! Puntuació: {nEncerts}/{nRespostes}");
         numCiutada++;
         StartCoroutine(Move(1));
