@@ -1944,12 +1944,13 @@ MonoBehaviour:
     t'has ficat en una situaci\xF3 perillosa. Intentar\xE9 donar-te un parell de
     consells per a ser capa\xE7 d'aturar aquest penjat.\nEst\xE0s ben entrenat, aix\xED
     que ets m\xE9s fort i m\xE9s r\xE0pid que aquesta gent, aix\xED que centra't
-    en l'estrat\xE8gia. Si ho aconsegueixes, ho tens fet.\n\nPrimer colpeja i esquiva.
-    Cansa'l! Que no es pugui moure! Quan el tinguis bastant cansat, redueix-lo. Creu-me,
-    \xE9s el millor proc\xE9s. Si li fots m\xE9s cops al final caur\xE0, tamb\xE9
-    et dic... Per\xF2 no cal, no?\nQuan el tinguis al terra, esposa'l! Ser\xE0 teu.\n\nSi
-    tens molta sort, et pots intentar saltar passes, per\xF2 no \xE9s el m\xE9s eficient.
-    Tu mateix.\nVa, molta sort amb aquest paio."
+    en l'estrat\xE8gia. Si ho aconsegueixes, ho tens fet.\n\nPrimer, colpeja per
+    cansar-lo, i atura els seus cops per descansar tu. \nCansa'l! Que no es pugui
+    moure! Quan el tinguis bastant cansat, redueix-lo. Creu-me, \xE9s el millor proc\xE9s.
+    Si li fots m\xE9s cops al final caur\xE0, tamb\xE9 et dic... Per\xF2 no cal,
+    no?\nQuan el tinguis al terra, esposa'l! Ser\xE0 teu.\n\nSi tens molta sort,
+    et pots intentar saltar passes, per\xF2 no \xE9s el m\xE9s eficient. Tu mateix.\nVa,
+    molta sort amb aquest paio."
 --- !u!222 &1674236084
 CanvasRenderer:
   m_ObjectHideFlags: 0

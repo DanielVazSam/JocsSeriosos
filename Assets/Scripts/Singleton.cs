@@ -6,8 +6,8 @@ public class Singleton : MonoBehaviour
 {
     public static Singleton inst;
 
-    public static int MAX_PAZ = 5000;
-    private int pau;
+    public static int MAX_PAU = 4500;
+    public int pau;
 
     private int diners;
 
@@ -15,7 +15,7 @@ public class Singleton : MonoBehaviour
     private List<KeyValuePair<Vector3, int>> missions;
     private List<bool> missionsPassed;
     private Vector3 actualMission; 
-    private int nMissionsPassed;
+    public int nMissionsPassed;
 
     public struct Person { public int quantity; public int fakeValue; public AlcoholValues.Alcohol alcohol; };
     public static int N_MISSIONS = 8;
@@ -23,6 +23,8 @@ public class Singleton : MonoBehaviour
     private int fiabilitatAlcoholimetre;
     private List<Person> peopleFailed;
     private List<AlcoholValues.Alcohol> alcohols;
+
+    // public bool isFinalMissionFinished;
 
     private bool isIntroduction;
     private bool isStoreTutorial;
@@ -75,6 +77,33 @@ public class Singleton : MonoBehaviour
         }
     }
 
+
+    public void ReStart()
+    {
+        inst.pau = 0;
+        inst.diners = 0;
+        
+        inst.missions = new List<KeyValuePair<Vector3, int>>();
+        inst.missionsPassed = new List<bool>();
+        inst.actualMission = new Vector3();
+        inst.nMissionsPassed = 0;
+        
+        inst.fiabilitatAlcoholimetre = 100;
+        inst.peopleFailed = new List<Person>();
+        inst.alcohols = new List<AlcoholValues.Alcohol> {
+            AlcoholValues.Cerveza,
+            AlcoholValues.Vino,
+            AlcoholValues.Ron,
+            AlcoholValues.Tequila
+        };
+        
+        inst.isIntroduction = true;
+        inst.isStoreTutorial = true;
+        inst.isBarallaTutorial = true;
+        inst.isAlcoholTutorial = true;
+    }
+
+
     public int GetPau()
     {
         return pau;
@@ -83,6 +112,11 @@ public class Singleton : MonoBehaviour
     public void AddPau(int plus)
     {
         pau += plus;
+        if(pau >= MAX_PAU)
+        {
+            pau = MAX_PAU;
+
+        }
     }
 
     public int GetDiners()

@@ -32,7 +32,7 @@ public class Utils : MonoBehaviour
     }
 
 
-    public void LoadScene(string scene)
+    public static void LoadScene(string scene)
     {
         SceneManager.LoadScene(scene);
     }

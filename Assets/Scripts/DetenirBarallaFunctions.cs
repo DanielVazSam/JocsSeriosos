@@ -233,6 +233,8 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
                     string dialogue = "L'enemic estava reduit, però no l'has esposat. Ja s'ha de tenir mala sort...\n" +
                         "L'enemic s'ha aixecat de nou.";
                     text.text = dialogue;
+                    if (vidaEnemy <= 0)
+                        vidaEnemy += 10;
                     isReduced = false;
                     if (vida > 0) police.SetIdle();
                     enemy.SetIdle();
