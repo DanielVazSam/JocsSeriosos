@@ -2919,7 +2919,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 40}
-  m_SizeDelta: {x: 1500, y: 400}
+  m_SizeDelta: {x: 1500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &661763227
 MonoBehaviour:
@@ -2954,11 +2954,16 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Aquesta \xE9s la ciutat? Est\xE0 devastada... \nAix\xF2 no t\xE9 remei...
-    O potser si? Jo crec que ho puc conseguir.\nEns heurem de posar mans a l'obra
-    per lliurar la ciutat de tanta foscor...\n\nHem de parar tota la delinq\xFC\xE8ncia
-    poc a poc. Comencem eliminant les baralles al voltant de la ciutat i disminuint
-    la presa il\xB7legal d'alcohol."
+  m_Text: "Benvingut a la meva botiga.\nAqu\xED podr\xE0s comprar totes les coses
+    que necessitis, a m\xE9s de reparar els teus aparells.\nLa veritat \xE9s que
+    ara mateix anem una mica escassos de recursos, i no podem fer gaire cosa fins
+    a que ens donin el pressupost pel joc final\u2014 vull dir, fins que ens arribin
+    tots els materials.\n\nAra meteix nom\xE9s et podem reparar l'alcohol\xEDmetre
+    que veig que portes a sobre.\nPer fer-ho, simplement li dones al bot\xF3 de reparar.
+    Abans de reparar-lo, per\xF2, et far\xE9 un petit test. Res, una cosa senzilla.\nIntenta
+    fer-ho b\xE9, que quantes m\xE9s respostes facis b\xE9, millor et deixar\xE9
+    el preu de reparar.\nAl q\xFCestionari nom\xE9s m'has de dir si els percentatges
+    de cada tipus d'alcohol \xE9s correcte. F\xE0cil, veritat? Va, prova-ho."
 --- !u!222 &661763228
 CanvasRenderer:
   m_ObjectHideFlags: 0

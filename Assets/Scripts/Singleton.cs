@@ -6,7 +6,7 @@ public class Singleton : MonoBehaviour
 {
     public static Singleton inst;
 
-    public static int MAX_PAZ = 3000;
+    public static int MAX_PAZ = 5000;
     private int pau;
 
     private int diners;
@@ -26,6 +26,8 @@ public class Singleton : MonoBehaviour
 
     private bool isIntroduction;
     private bool isStoreTutorial;
+    private bool isBarallaTutorial;
+    private bool isAlcoholTutorial;
 
 
     private void Awake()
@@ -53,11 +55,13 @@ public class Singleton : MonoBehaviour
             AlcoholValues.Cerveza,
             AlcoholValues.Vino,
             AlcoholValues.Ron,
-            AlcoholValues.Tequila 
+            AlcoholValues.Tequila
         };
 
         isIntroduction = true;
         isStoreTutorial = true;
+        isBarallaTutorial = true;
+        isAlcoholTutorial = true;
     }
 
     void Update()
@@ -195,6 +199,26 @@ public class Singleton : MonoBehaviour
     public void SetIsStoreTutorial(bool ii)
     {
         isStoreTutorial = ii;
+    }
+
+    public bool GetIsBarallaTutorial()
+    {
+        return isBarallaTutorial;
+    }
+
+    public void SetIsBarallaTutorial(bool ii)
+    {
+        isBarallaTutorial = ii;
+    }
+
+    public bool GetIsAlcoholTutorial()
+    {
+        return isAlcoholTutorial;
+    }
+
+    public void SetIsAlcoholTutorial(bool ii)
+    {
+        isAlcoholTutorial = ii;
     }
 
 }
