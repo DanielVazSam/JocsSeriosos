@@ -13,7 +13,7 @@ public class MapGenerator : MonoBehaviour
     //Possibles posicions dels botons
     Vector3[] positions = { new Vector3(-110, -67, 0), 
                             new Vector3(438, 57, 0), 
-                            new Vector3(-686, -316, 0), 
+                            new Vector3(-597, -316, 0), 
                             new Vector3(-521, -77, 0), 
                             new Vector3(133, -351, 0), 
                             new Vector3(617, -327, 0), 
