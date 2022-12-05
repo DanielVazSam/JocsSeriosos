@@ -53,6 +53,10 @@ public class FinalMinigame : MonoBehaviour
         else score = s;
 
 
+        Debug.Log("score = " + score);
+        Debug.Log("MAX_SCORE = " + MAX_SCORE);
+
+
         int prop = 100 * score / MAX_SCORE;
         int rangePau = Random.Range(4, 8);
         int rangeDiners = Random.Range(1, 3);
@@ -70,7 +74,7 @@ public class FinalMinigame : MonoBehaviour
         }
 
 
-        scoreText.text = score.ToString();
+        scoreText.text = prop.ToString();
         pauText.text = newPau.ToString();
         dinersText.text = newDiners.ToString();
     }

@@ -137,7 +137,11 @@ public class DetenirBarallaFunctions : MonoBehaviour, IMinigameFunctionsInterfac
                     string dialogue = "Tots dos estàveu esperant un cop.\nUs heu quedat mirant-vos com dos idiotes.\n" +
                         "Us ha donat temps de recuperar-vos una mica.";
                     vida += 10;
+                    if (vida > 100)
+                        vida = 100;
                     vidaEnemy += 10;
+                    if (vidaEnemy > 100)
+                        vidaEnemy = 100;
                     text.text = dialogue;
                     if (vida > 0) police.SetIdle();
                     enemy.SetIdle();
