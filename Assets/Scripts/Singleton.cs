@@ -6,7 +6,7 @@ public class Singleton : MonoBehaviour
 {
     public static Singleton inst;
 
-    public static int MAX_PAZ = 1000;
+    public static int MAX_PAZ = 3000;
     private int pau;
 
     private int diners;
