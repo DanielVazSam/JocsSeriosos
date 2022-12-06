@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FinalMinigame : MonoBehaviour
@@ -71,6 +72,9 @@ public class FinalMinigame : MonoBehaviour
             Singleton.inst.AddPau(newPau);
             Singleton.inst.AddDiners(newDiners);
             Singleton.inst.SetMissionPassed();
+
+            List<Singleton.Person> aux = Singleton.inst.GetListFinalMision();
+            if (aux != null && aux.Count == 0) SceneManager.LoadScene("FinalScene");
         }
 
 
