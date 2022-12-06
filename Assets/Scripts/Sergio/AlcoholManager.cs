@@ -41,6 +41,7 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         }
 
         alcohols = Singleton.inst.GetAlcohols();
+        if(isFinalMission) maxCiutadans = peopleFinalMission.Count;
         nRespostes = maxCiutadans * 2; //Cada ciutadà pot mentir o beure de més
         text.text = "";
         GenerateNewPerson();
