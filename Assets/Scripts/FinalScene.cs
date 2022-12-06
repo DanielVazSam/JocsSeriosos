@@ -10,7 +10,7 @@ public class FinalScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text.text = Singleton.inst.GetPau().ToString();
+        text.text = Singleton.inst.GetPau() + "/4500";
     }
 
 }
