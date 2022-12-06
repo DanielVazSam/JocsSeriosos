@@ -2958,7 +2958,7 @@ MonoBehaviour:
     que necessitis, a m\xE9s de reparar els teus aparells.\nLa veritat \xE9s que
     ara mateix anem una mica escassos de recursos, i no podem fer gaire cosa fins
     a que ens donin el pressupost pel joc final\u2014 vull dir, fins que ens arribin
-    tots els materials.\n\nAra meteix nom\xE9s et podem reparar l'alcohol\xEDmetre
+    tots els materials.\n\nAra mateix nom\xE9s et podem reparar l'alcohol\xEDmetre
     que veig que portes a sobre.\nPer fer-ho, simplement li dones al bot\xF3 de reparar.
     Abans de reparar-lo, per\xF2, et far\xE9 un petit test. Res, una cosa senzilla.\nIntenta
     fer-ho b\xE9, que quantes m\xE9s respostes facis b\xE9, millor et deixar\xE9
@@ -3824,6 +3824,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introduction: {fileID: 0}
   storeTutorial: {fileID: 796235090}
+  barallaTutorial: {fileID: 0}
+  alcoholTutorial: {fileID: 0}
 --- !u!4 &974763318
 Transform:
   m_ObjectHideFlags: 0
@@ -6887,6 +6889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c641a828c522eae43adb98c0b7c0f351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pau: 0
+  nMissionsPassed: 0
 --- !u!4 &1843030439
 Transform:
   m_ObjectHideFlags: 0

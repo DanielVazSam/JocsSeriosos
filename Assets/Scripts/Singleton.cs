@@ -21,6 +21,7 @@ public class Singleton : MonoBehaviour
     public static int N_MISSIONS = 8;
 
     private int fiabilitatAlcoholimetre;
+    private bool mentir;
     private List<Person> peopleFailed;
     private List<AlcoholValues.Alcohol> alcohols;
 
@@ -30,6 +31,7 @@ public class Singleton : MonoBehaviour
     private bool isStoreTutorial;
     private bool isBarallaTutorial;
     private bool isAlcoholTutorial;
+    private bool isFinalGame;
 
 
     private void Awake()
@@ -64,6 +66,8 @@ public class Singleton : MonoBehaviour
         isStoreTutorial = true;
         isBarallaTutorial = true;
         isAlcoholTutorial = true;
+        isFinalGame = false;
+        mentir = false;
     }
 
     void Update()
@@ -101,6 +105,8 @@ public class Singleton : MonoBehaviour
         inst.isStoreTutorial = true;
         inst.isBarallaTutorial = true;
         inst.isAlcoholTutorial = true;
+        inst.isFinalGame = false;
+        inst.mentir = false;
     }
 
 
@@ -173,6 +179,16 @@ public class Singleton : MonoBehaviour
     { 
         peopleFailed.Add(person);
     }
+
+    public bool Mentir()
+    {
+        if (!mentir)
+        {
+            mentir = true;
+            return false;
+        }
+        return true;
+    }
     public void RepairAlcoholimeter(int price)
     {
         if(price <= diners)
@@ -183,8 +199,13 @@ public class Singleton : MonoBehaviour
     }
     public List<Person> GetListFinalMision()
     {
-        if(nMissionsPassed == N_MISSIONS) return peopleFailed;
+        isFinalGame = nMissionsPassed == N_MISSIONS;
+        if(isFinalGame) return peopleFailed;
         else return null;
+    }
+    public bool IsFinalGame()
+    {
+        return isFinalGame;
     }
     public List<AlcoholValues.Alcohol> GetAlcohols()
     {
@@ -200,7 +221,7 @@ public class Singleton : MonoBehaviour
     }
     public void ChangeFiabilitat(int newFiabilitat)
     {
-        fiabilitatAlcoholimetre = newFiabilitat > 0 ? newFiabilitat : fiabilitatAlcoholimetre + newFiabilitat;
+        fiabilitatAlcoholimetre = newFiabilitat > 0 ? newFiabilitat : Mathf.Max(fiabilitatAlcoholimetre + newFiabilitat, 30);
     }
     #endregion
 
@@ -214,7 +235,8 @@ public class Singleton : MonoBehaviour
         }
         return i;
     }
-
+     //Tutoriales
+    #region
     public bool GetIsIntroduction()
     {
         return isIntroduction;
@@ -254,5 +276,5 @@ public class Singleton : MonoBehaviour
     {
         isAlcoholTutorial = ii;
     }
-
+    #endregion
 }

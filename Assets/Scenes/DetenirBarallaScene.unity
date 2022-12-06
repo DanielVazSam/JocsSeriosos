@@ -701,6 +701,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5147223685861516772, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5606644371282534081, guid: b238972ef81996f4c9f6e0d64938586e, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1025,7 +1029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &944498142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,6 +1219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c641a828c522eae43adb98c0b7c0f351, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pau: 0
+  nMissionsPassed: 0
 --- !u!4 &1011173319
 Transform:
   m_ObjectHideFlags: 0

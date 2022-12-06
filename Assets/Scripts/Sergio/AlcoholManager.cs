@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
@@ -30,7 +31,8 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
 
     void Start()
     {
-        //mentir = Singleton.inst.Mentir();
+        mentir = Singleton.inst.Mentir();
+        Debug.Log("MEntir: " + mentir);
         peopleFinalMission = Singleton.inst.GetListFinalMision();
         if(peopleFinalMission != null)
         {
@@ -149,7 +151,8 @@ public class AlcoholManager : MonoBehaviour, IMinigameFunctionsInterface
         {
             if ( ((float)nEncerts) / nRespostes >= 0.85f) 
                 Singleton.inst.AddAlcohol(AlcoholValues.GetRandomAlcohol());
-            this.GetComponent<FinalMinigame>().Final(nEncerts, nRespostes);
+            if (Singleton.inst.IsFinalGame()) SceneManager.LoadScene("FinalScene");
+            else this.GetComponent<FinalMinigame>().Final(nEncerts, nRespostes);
         }
             //Debug.Log($"Acabat! Puntuació: {nEncerts}/{nRespostes}");
         numCiutada++;
